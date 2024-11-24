@@ -1,0 +1,89 @@
+﻿<Window x:Class="WhatsAppClone.LoginPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="450" Width="350"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F3F3">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- عنوان الصفحة -->
+        <TextBlock Text="تسجيل الدخول" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,10"
+                   Foreground="#333" />
+
+        <!-- محتوى النموذج -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <!-- اسم المستخدم -->
+            <TextBox x:Name="UsernameTextBox" 
+                     
+                     FontSize="14" 
+                     Padding="10" 
+                     BorderBrush="#CCC" 
+                     Background="#FFF" />
+
+            <!-- كلمة المرور -->
+            <PasswordBox x:Name="PasswordBox" 
+                        
+                         FontSize="14" 
+                         Padding="10" 
+                         BorderBrush="#CCC" 
+                         Background="#FFF" />
+
+            <!-- كلمة المرور الجديدة (إعادة تعيين) -->
+            <PasswordBox x:Name="resetPassword" 
+                         
+                         FontSize="14" 
+                         Padding="10" 
+                         BorderBrush="#CCC" 
+                         Background="#FFF" 
+                         Visibility="Collapsed" />
+
+            <!-- زر تسجيل الدخول -->
+            <Button x:Name="login" 
+                    Content="تسجيل الدخول" 
+                    FontSize="16" 
+                    Width="150" 
+                    Height="40" 
+                    HorizontalAlignment="Center" 
+                    Background="#4CAF50" 
+                    Foreground="White" 
+                    Click="LoginButton_Click" />
+            <Button x:Name="restbu" 
+        Content="تسجيل الدخول" 
+        FontSize="16" 
+        Width="150" 
+        Height="40" 
+        HorizontalAlignment="Center" 
+        Background="#4CAF50" 
+        Foreground="White" 
+        Click="resetassButton_Click"  Visibility="Collapsed"/>
+            <!-- زر إعادة تعيين كلمة المرور -->
+            <Button x:Name="reset" 
+                    Content="تغيير كلمة المرور" 
+                    FontSize="14" 
+                    HorizontalAlignment="Center" 
+                    Background="Transparent" 
+                    Foreground="#4CAF50" 
+                    BorderBrush="Transparent" 
+                    Click="resetButton_Click" />
+
+            <!-- زر تسجيل حساب جديد -->
+            <Button x:Name="singup" 
+                    Content="إنشاء حساب" 
+                    FontSize="16" 
+                    Width="150" 
+                    Height="40" 
+                    HorizontalAlignment="Center" 
+                    Background="#2196F3" 
+                    Foreground="White" 
+                    Click="singButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

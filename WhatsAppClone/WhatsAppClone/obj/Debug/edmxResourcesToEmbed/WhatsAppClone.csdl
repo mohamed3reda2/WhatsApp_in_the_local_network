@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WhatsAppCloneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="ChatID" />
+    </Key>
+    <Property Name="ChatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderID" Type="Int32" Nullable="false" />
+    <Property Name="ReceiverID" Type="Int32" Nullable="false" />
+    <Property Name="MessageText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Timestamp" Type="DateTime" Precision="3" />
+    <Property Name="IsRead" Type="Boolean" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Receiver" FromRole="Chats" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK_Sender" FromRole="Chats" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="ConnectionID" />
+    </Key>
+    <Property Name="ConnectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_ConnectionUser" FromRole="Connections" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Story">
+    <Key>
+      <PropertyRef Name="StoryID" />
+    </Key>
+    <Property Name="StoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Expiration" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Stories__UserID__5EBF139D" FromRole="Stories" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastSeen" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Chats" Relationship="Self.FK_Receiver" FromRole="Users" ToRole="Chats" />
+    <NavigationProperty Name="Chats1" Relationship="Self.FK_Sender" FromRole="Users" ToRole="Chats" />
+    <NavigationProperty Name="Connections" Relationship="Self.FK_ConnectionUser" FromRole="Users" ToRole="Connections" />
+    <NavigationProperty Name="Stories" Relationship="Self.FK__Stories__UserID__5EBF139D" FromRole="Users" ToRole="Stories" />
+  </EntityType>
+  <Association Name="FK_Receiver">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Chats" Type="Self.Chat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Chats">
+        <PropertyRef Name="ReceiverID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sender">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Chats" Type="Self.Chat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Chats">
+        <PropertyRef Name="SenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConnectionUser">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Connections" Type="Self.Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Connections">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stories__UserID__5EBF139D">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Stories" Type="Self.Story" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Stories">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WhatsAppCloneEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chats" EntityType="Self.Chat" />
+    <EntitySet Name="Connections" EntityType="Self.Connection" />
+    <EntitySet Name="Stories" EntityType="Self.Story" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Receiver" Association="Self.FK_Receiver">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Chats" EntitySet="Chats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sender" Association="Self.FK_Sender">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Chats" EntitySet="Chats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConnectionUser" Association="Self.FK_ConnectionUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Connections" EntitySet="Connections" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stories__UserID__5EBF139D" Association="Self.FK__Stories__UserID__5EBF139D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Stories" EntitySet="Stories" />
+    </AssociationSet>
+    <FunctionImport Name="AddMessage">
+      <Parameter Name="SenderID" Mode="In" Type="Int32" />
+      <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
+      <Parameter Name="MessageText" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddStory">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+      <Parameter Name="Content" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddUser">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="ProfilePicture" Mode="In" Type="String" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetMessages" ReturnType="Collection(WhatsAppCloneModel.GetMessages_Result)">
+      <Parameter Name="UserID1" Mode="In" Type="Int32" />
+      <Parameter Name="UserID2" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetStories">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="MarkMessagesAsRead">
+      <Parameter Name="SenderID" Mode="In" Type="Int32" />
+      <Parameter Name="ReceiverID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetMessages_Result">
+    <Property Type="Int32" Name="ChatID" Nullable="false" />
+    <Property Type="Int32" Name="SenderID" Nullable="false" />
+    <Property Type="Int32" Name="ReceiverID" Nullable="false" />
+    <Property Type="String" Name="MessageText" Nullable="true" />
+    <Property Type="DateTime" Name="Timestamp" Nullable="true" Precision="23" />
+    <Property Type="Boolean" Name="IsRead" Nullable="true" />
+  </ComplexType>
+</Schema>
