@@ -3,48 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Chats" Height="600" Width="850">
     <Grid>
-        <!-- تعريف الأعمدة والصفوف -->
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <!-- قائمة الأصدقاء -->
+         
             <ColumnDefinition Width="*"/>
-            <!-- منطقة الشات -->
+        
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <!-- منطقة الشات -->
+         
             <RowDefinition Height="Auto"/>
-            <!-- إدخال الرسالة -->
+           
         </Grid.RowDefinitions>
 
-        <!-- قائمة الأصدقاء -->
+       
         <ListBox x:Name="ContactsList" Grid.Column="0" Grid.RowSpan="2" 
                  Margin="5" 
                  SelectionChanged="ContactsList_SelectionChanged" />
 
-        <!-- منطقة الشات -->
+       
         <Grid Grid.Column="1" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- زر الانتقال إلى الحالات -->
+              
                 <RowDefinition Height="*"/>
-                <!-- قائمة الرسائل -->
+             
             </Grid.RowDefinitions>
 
-            <!-- زر الانتقال إلى صفحة الحالة -->
+          
             <Button Content="الحالات" HorizontalAlignment="Right" 
                     Margin="10" 
                     Width="100" 
                     Height="30" 
                     Click="GoToStoryPage_Click"/>
 
-            <!-- قائمة الرسائل -->
+     
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
                 <StackPanel x:Name="ChatMessages" />
             </ScrollViewer>
         </Grid>
 
-        <!-- إدخال الرسالة -->
         <DockPanel Grid.Column="1" Grid.Row="1" Margin="10">
             <TextBox x:Name="MessageTextBox" DockPanel.Dock="Left" 
                      Width="500" 

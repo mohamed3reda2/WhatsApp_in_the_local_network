@@ -6,27 +6,27 @@
         WindowStyle="None" 
         ResizeMode="NoResize">
     <Grid>
-        <!-- تعريف الصفوف والأعمدة لملء المساحة بشكل مرن -->
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- حجم ثابت للمحتويات العلوية -->
+         
             <RowDefinition Height="*"/>
-            <!-- الحجم المتبقي للقائمة -->
+   
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- قائمة لاختيار المستخدم لمشاهدة حالته -->
+  
         <ComboBox x:Name="UsersComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="30" Margin="20,20,0,0" Grid.Row="0" SelectionChanged="UsersComboBox_SelectionChanged" />
 
-        <!-- زر لتحميل ورفع الصورة أو الفيديو -->
+ 
         <Button Content="Upload Story" VerticalAlignment="Top" Width="120" Height="40" Margin="240,20,0,0" Grid.Row="0" Click="UploadStoryButton_Click" />
 
-        <!-- زر للتحقق من حالة المستخدم المحدد -->
 
-        <!-- عنصر لعرض حالة القصة مع شريط التمرير -->
+
+
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20,70,20,20" Grid.Row="1">
             <ListBox x:Name="StoriesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </ScrollViewer>

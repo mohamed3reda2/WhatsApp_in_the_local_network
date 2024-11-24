@@ -17,12 +17,12 @@ namespace WhatsAppClone
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // التحقق من بيانات تسجيل الدخول
+       
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
             if (user != null)
             {
-                // فتح صفحة المحادثات
+         
                 ChatPage chatPage = new ChatPage(user.UserID);
                 chatPage.Show();
                 this.Close();
@@ -52,7 +52,7 @@ namespace WhatsAppClone
             string password = PasswordBox.Password;
             string resetpassword = resetPassword.Password;
 
-            // التحقق من بيانات تسجيل الدخول
+         
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
             if (user != null)
@@ -75,12 +75,12 @@ namespace WhatsAppClone
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // التحقق من بيانات تسجيل الدخول
+          
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
             if (user != null)
             {
-                // فتح صفحة المحادثات
+              
                 MessageBox.Show("هذا المستخدم موجود بالفعل");
 
             }

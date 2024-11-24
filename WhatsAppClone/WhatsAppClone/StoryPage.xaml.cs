@@ -17,11 +17,11 @@ namespace WhatsAppClone
         {
             InitializeComponent();
             _currentUserID = userID;
-            LoadUsers();  // تحميل المستخدمين في الـ ComboBox
-            LoadStories();  // تحميل القصص من جميع المستخدمين
+            LoadUsers();  
+            LoadStories();  
         }
 
-        // تحميل المستخدمين في الـ ComboBox
+        
         private void LoadUsers()
         {
             var users = _context.Users.Select(u => new { u.UserID, u.Username }).ToList();
@@ -30,7 +30,7 @@ namespace WhatsAppClone
             UsersComboBox.SelectedValuePath = "UserID";
         }
 
-        // تحميل القصص لجميع المستخدمين باستثناء القصة الخاصة بالمستخدم الحالي
+
         private void LoadStories()
         {
             var stories = _context.Stories
@@ -61,7 +61,7 @@ namespace WhatsAppClone
                     var stream = new MemoryStream(story.Content);
                     string tempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp4");
 
-                    // حفظ الفيديو في ملف مؤقت
+                    
                     File.WriteAllBytes(tempFilePath, stream.ToArray());
 
                     mediaElement.Source = new Uri(tempFilePath);
@@ -69,51 +69,50 @@ namespace WhatsAppClone
                     mediaElement.Play();
                     StoriesList.Items.Add(mediaElement);
 
-                    // إضافة حدث عند الانتهاء من تشغيل الفيديو
+                
                     mediaElement.MediaEnded += (obj, args) =>
                     {
-                        File.Delete(tempFilePath);  // حذف الملف المؤقت بعد الانتهاء من تشغيل الفيديو
+                        File.Delete(tempFilePath);  
                     };
                 }
             }
         }
 
-        // رفع القصة (صورة أو فيديو)
+    
         private void UploadStoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // فتح نافذة لاختيار الملف (صورة أو فيديو)
+         
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png|Video Files|*.mp4;*.avi";
 
             if (fileDialog.ShowDialog() == true)
             {
-                string filePath = fileDialog.FileName;  // المسار الكامل للملف
+                string filePath = fileDialog.FileName;  
 
-                // تحويل الملف إلى بيانات ثنائية (Binary)
+            
                 byte[] fileData = File.ReadAllBytes(filePath);
 
-                // تحديد نوع القصة بناءً على الامتداد
+               
                 string fileType = filePath.EndsWith(".mp4") || filePath.EndsWith(".avi") ? "Video" : "Image";
 
-                // تخزين القصة في قاعدة البيانات
+             
                 var newStory = new Story
                 {
                     UserID = _currentUserID,
                     Content = fileData,
                     Type = fileType,
-                    Expiration = DateTime.Now.AddHours(24)  // القصة ستنتهي بعد 24 ساعة
+                    Expiration = DateTime.Now.AddHours(24)  
                 };
 
                 _context.Stories.Add(newStory);
                 _context.SaveChanges();
 
-                // إعادة تحميل القصص بعد إضافة القصة الجديدة
+      
                 LoadStories();
             }
         }
 
-        // عرض حالة القصة للمستخدم الذي تم اختياره
-       
+
         private void UsersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selectedUserID = (int)UsersComboBox.SelectedValue;
@@ -148,7 +147,7 @@ namespace WhatsAppClone
                         var stream = new MemoryStream(story.Content);
                         string tempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp4");
 
-                        // حفظ الفيديو في ملف مؤقت
+                     
                         File.WriteAllBytes(tempFilePath, stream.ToArray());
 
                         mediaElement.Source = new Uri(tempFilePath);
@@ -156,10 +155,10 @@ namespace WhatsAppClone
                         mediaElement.Play();
                         StoriesList.Items.Add(mediaElement);
 
-                        // إضافة حدث عند الانتهاء من تشغيل الفيديو
+                 
                         mediaElement.MediaEnded += (obj, args) =>
                         {
-                            File.Delete(tempFilePath);  // حذف الملف المؤقت بعد الانتهاء من تشغيل الفيديو
+                            File.Delete(tempFilePath);  
                         };
                     }
                 }

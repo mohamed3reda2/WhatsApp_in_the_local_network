@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading; // استيراد المكتبة الخاصة بالمؤقت
+using System.Windows.Threading; 
 
 namespace WhatsAppClone
 {
@@ -11,7 +11,7 @@ namespace WhatsAppClone
         private WhatsAppCloneEntities _context = new WhatsAppCloneEntities();
         private int _currentUserID;
         private int _selectedContactID;
-        private DispatcherTimer _messageTimer; // تعريف المؤقت
+        private DispatcherTimer _messageTimer; 
         private void MessageTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter && Keyboard.Modifiers == ModifierKeys.Control)
@@ -32,7 +32,7 @@ namespace WhatsAppClone
                     MessageTextBox.Clear();
                     LoadMessages();
                 }
-                e.Handled = true; // منع الإدخال الافتراضي لـ Enter
+                e.Handled = true; 
             }
         }
             public ChatPage(int userID)
@@ -41,11 +41,11 @@ namespace WhatsAppClone
             _currentUserID = userID;
             LoadContacts();
 
-            // إعداد المؤقت
+          
             _messageTimer = new DispatcherTimer();
-            _messageTimer.Interval = System.TimeSpan.FromSeconds(1); // التحديث كل ثانية
-            _messageTimer.Tick += (sender, e) => LoadMessages(); // استدعاء الدالة لتحديث الرسائل
-            _messageTimer.Start(); // بدء المؤقت
+            _messageTimer.Interval = System.TimeSpan.FromSeconds(1);
+            _messageTimer.Tick += (sender, e) => LoadMessages(); 
+            _messageTimer.Start(); 
         }
 
         private void LoadContacts()
@@ -116,7 +116,7 @@ namespace WhatsAppClone
 
         private void GoToStoryPage_Click(object sender, RoutedEventArgs e)
         {
-            // فتح صفحة الحالة
+            
             StoryPage storyPage = new StoryPage(_currentUserID);
             storyPage.Show();
         }
